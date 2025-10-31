@@ -11,6 +11,11 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddOptionsWithValidateOnStart<S3Options>()
+    .Bind(builder.Configuration.GetSection(nameof(S3Options)))
+    .ValidateDataAnnotations();
+    
+
 var connectionString = builder.Configuration.GetConnectionString("AppDb");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options
